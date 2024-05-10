@@ -18,7 +18,7 @@ struct ImageIcon: View {
             .renderingMode(.template)
             .resizable()
             .scaledToFit()
-            .foregroundStyle(.indigo)
+            .foregroundStyle(.orange)
             .frame(width: width)
             .opacity(opacity)
     }
