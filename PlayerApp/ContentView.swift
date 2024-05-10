@@ -46,8 +46,26 @@ struct ContentView: View {
                 .border(.black, width: 2)
             }
         }
+        .buttonStyle(ButtonTapStyle(performAnimation: $performAnimation))
         .frame(maxWidth: 62)
         .border(.purple, width: 1)
+    }
+}
+
+struct ButtonTapStyle: ButtonStyle {
+    @Binding var performAnimation: Bool
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .onTapGesture {
+                withAnimation(Animation.spring(duration: 0.5, bounce: 0.5)) {
+                    performAnimation = true
+                } completion: {
+                    performAnimation = false
+                }
+            }
+            .scaleEffect(performAnimation ? 0 : 1)
+            .animation(.smooth(duration: 2), value: performAnimation)
     }
 }
 
