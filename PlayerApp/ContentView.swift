@@ -22,33 +22,21 @@ struct ContentView: View {
         } label: {
             GeometryReader { proxy in
                 let width = proxy.size.width / 2
-                let imageName = "play.fill"
                 HStack(alignment: .center, spacing: 0) {
-                    Image(systemName: imageName)
-                        .renderingMode(.template)
-                        .resizable()
-                        .scaledToFit()
+                    ImageIcon()
                         .frame(width: performAnimation ? width : .zero)
                         .opacity( performAnimation ? 1 : 0)
-                    Image(systemName: imageName)
-                        .renderingMode(.template)
-                        .resizable()
-                        .scaledToFit()
+                    ImageIcon()
                         .frame(width: width)
-                    Image(systemName: imageName)
-                        .renderingMode(.template)
-                        .resizable()
-                        .scaledToFit()
+                    ImageIcon()
                         .frame(width: performAnimation ? 0.5 : width)
                         .opacity( performAnimation ? 0 : 1)
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
-                .border(.black, width: 2)
             }
         }
         .buttonStyle(ButtonTapStyle(performAnimation: $performAnimation))
         .frame(maxWidth: 62)
-        .border(.purple, width: 1)
     }
 }
 
@@ -57,15 +45,27 @@ struct ButtonTapStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .onTapGesture {
-                withAnimation(Animation.spring(duration: 0.5, bounce: 0.5)) {
-                    performAnimation = true
-                } completion: {
-                    performAnimation = false
-                }
-            }
-            .scaleEffect(performAnimation ? 0 : 1)
-            .animation(.smooth(duration: 2), value: performAnimation)
+            .background(
+                Circle()
+                    .frame(width: 100, height: 100)
+                    .foregroundStyle(.indigo)
+                    .opacity(performAnimation ? 0.1 : 0)
+            
+            )
+            .scaleEffect(performAnimation ? 0.86 : 1)
+            .animation(.smooth(duration: 0.22, extraBounce: 0.6), value: performAnimation)
+    }
+}
+
+struct ImageIcon: View {
+    let imageName = "play.fill"
+    
+    var body: some View {
+        Image(systemName: imageName)
+            .renderingMode(.template)
+            .resizable()
+            .scaledToFit()
+            .foregroundStyle(.indigo)
     }
 }
 
