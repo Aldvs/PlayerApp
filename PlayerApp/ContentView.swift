@@ -12,8 +12,12 @@ struct ContentView: View {
     
     var body: some View {
         Button {
-            withAnimation(Animation.spring(duration: 0.5, bounce: 0.5)) {
-                performAnimation = true
+            if !performAnimation {
+                withAnimation(Animation.spring(duration: 0.5, bounce: 0.5)) {
+                    performAnimation = true
+                } completion: {
+                    performAnimation = false
+                }
             }
         } label: {
             GeometryReader { proxy in
@@ -24,7 +28,8 @@ struct ContentView: View {
                         .renderingMode(.template)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: .zero)
+                        .frame(width: performAnimation ? width : .zero)
+                        .opacity( performAnimation ? 1 : 0)
                     Image(systemName: imageName)
                         .renderingMode(.template)
                         .resizable()
@@ -34,7 +39,8 @@ struct ContentView: View {
                         .renderingMode(.template)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: width)
+                        .frame(width: performAnimation ? 0.5 : width)
+                        .opacity( performAnimation ? 0 : 1)
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
                 .border(.black, width: 2)
