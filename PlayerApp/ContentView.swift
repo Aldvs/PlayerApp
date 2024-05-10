@@ -23,41 +23,45 @@ struct ContentView: View {
             GeometryReader { proxy in
                 let width = proxy.size.width / 2
                 HStack(alignment: .center, spacing: 0) {
-                    ImageIcon()
-                        .frame(width: performAnimation ? width : .zero)
-                        .opacity( performAnimation ? 1 : 0)
-                    ImageIcon()
-                        .frame(width: width)
-                    ImageIcon()
-                        .frame(width: performAnimation ? 0.5 : width)
-                        .opacity( performAnimation ? 0 : 1)
+                    ImageIcon(
+                        width: performAnimation ? width : .zero,
+                        opacity: performAnimation ? 1 : 0)
+                    ImageIcon(
+                        width: width,
+                        opacity: 1)
+                    ImageIcon(
+                        width: performAnimation ? 0.5 : width,
+                        opacity: performAnimation ? 0 : 1)
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
             }
         }
-        .buttonStyle(ButtonTapStyle(performAnimation: $performAnimation))
+//        .buttonStyle(ButtonTapStyle(performAnimation: $performAnimation))
         .frame(maxWidth: 62)
     }
 }
 
-struct ButtonTapStyle: ButtonStyle {
-    @Binding var performAnimation: Bool
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .background(
-                Circle()
-                    .frame(width: 100, height: 100)
-                    .foregroundStyle(.indigo)
-                    .opacity(performAnimation ? 0.1 : 0)
-            
-            )
-            .scaleEffect(performAnimation ? 0.86 : 1)
-            .animation(.smooth(duration: 0.22, extraBounce: 0.6), value: performAnimation)
-    }
-}
+//struct ButtonTapStyle: ButtonStyle {
+//    @Binding var performAnimation: Bool
+//    
+//    func makeBody(configuration: Configuration) -> some View {
+//        configuration.label
+//            .background(
+//                Circle()
+//                    .frame(width: 100, height: 100)
+//                    .foregroundStyle(.indigo)
+//                    .opacity(performAnimation ? 0.1 : 0)
+//            
+//            )
+//            .scaleEffect(performAnimation ? 0.86 : 1)
+//            .animation(.smooth(duration: 0.22, extraBounce: 0.6), value: performAnimation)
+//    }
+//}
 
 struct ImageIcon: View {
+    var width: CGFloat
+    var opacity: CGFloat
+    
     let imageName = "play.fill"
     
     var body: some View {
@@ -66,6 +70,8 @@ struct ImageIcon: View {
             .resizable()
             .scaledToFit()
             .foregroundStyle(.indigo)
+            .frame(width: width)
+            .opacity(opacity)
     }
 }
 
