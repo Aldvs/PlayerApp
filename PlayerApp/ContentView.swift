@@ -17,6 +17,9 @@ struct ContentView: View {
 struct PressButtonStyle: ButtonStyle {
     
     @State private var isProcessingPressBackgroundAnimation: Bool = false
+    @State private var startTime: Date?
+    @State private var elapsedTime: TimeInterval = 0.0
+    @State private var moreThanDuration: Bool = false
     
     let duration: TimeInterval = 0.4
     let scale: CGFloat = 0.86
@@ -37,34 +40,29 @@ struct PressButtonStyle: ButtonStyle {
                 withAnimation(Animation.easeOut(duration: duration)) {
                     isProcessingPressBackgroundAnimation = true
                 }
+                startTime = Date()
             } else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                if let startTime = startTime {
+                    elapsedTime = Date().timeIntervalSince(startTime)
+                }
+                moreThanDuration = elapsedTime > duration
+                DispatchQueue.main.asyncAfter(deadline: .now() + (moreThanDuration ? 0 : duration)) {
                     withAnimation(Animation.easeOut(duration: duration)) {
                         isProcessingPressBackgroundAnimation = false
+                    } completion: {
+                        resetTime()
                     }
                 }
             }
         }
-        
+    }
+    
+    private func resetTime() {
+        startTime = nil
+        elapsedTime = 0.0
+        moreThanDuration = false
     }
 }
-
-//struct ButtonTapStyle: ButtonStyle {
-//    @Binding var performAnimation: Bool
-//    
-//    func makeBody(configuration: Configuration) -> some View {
-//        configuration.label
-//            .background(
-//                Circle()
-//                    .frame(width: 100, height: 100)
-//                    .foregroundStyle(.indigo)
-//                    .opacity(performAnimation ? 0.1 : 0)
-//            
-//            )
-//            .scaleEffect(performAnimation ? 0.86 : 1)
-//            .animation(.smooth(duration: 0.22, extraBounce: 0.6), value: performAnimation)
-//    }
-//}
 
 #Preview {
     ContentView()
