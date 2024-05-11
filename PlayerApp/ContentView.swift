@@ -15,7 +15,10 @@ struct ContentView: View {
 }
 
 struct PressButtonStyle: ButtonStyle {
-    let duration: TimeInterval = 0.22
+    
+    @State private var isProcessingPressBackgroundAnimation: Bool = false
+    
+    let duration: TimeInterval = 0.4
     let scale: CGFloat = 0.86
     
     func makeBody(configuration: Configuration) -> some View {
@@ -23,12 +26,26 @@ struct PressButtonStyle: ButtonStyle {
             Circle()
                 .frame(width: 100, height: 100)
                 .foregroundStyle(.gray)
-                .opacity(configuration.isPressed ? 0.3 : 0)
+                .opacity(isProcessingPressBackgroundAnimation ? 0.3 : 0)
             configuration.label
                 .padding(20)
         }
-        .scaleEffect(configuration.isPressed ? scale : 1)
+        .scaleEffect(isProcessingPressBackgroundAnimation ? scale : 1)
         .animation(Animation.easeOut(duration: duration), value: configuration.isPressed)
+        .onChange(of: configuration.isPressed) { newValue in
+            if newValue {
+                withAnimation(Animation.easeOut(duration: duration)) {
+                    isProcessingPressBackgroundAnimation = true
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                    withAnimation(Animation.easeOut(duration: duration)) {
+                        isProcessingPressBackgroundAnimation = false
+                    }
+                }
+            }
+        }
+        
     }
 }
 
