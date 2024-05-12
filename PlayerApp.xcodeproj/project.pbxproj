@@ -13,6 +13,7 @@
 		84D3F7E82BED44E000B80EC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84D3F7E72BED44E000B80EC8 /* Preview Assets.xcassets */; };
 		84D3F7F12BEEBDC400B80EC8 /* ImageIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D3F7F02BEEBDC400B80EC8 /* ImageIcon.swift */; };
 		84D3F7F32BEEBE2000B80EC8 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D3F7F22BEEBE2000B80EC8 /* NextButton.swift */; };
+		84D3F7F52BEF922200B80EC8 /* VisibleSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D3F7F42BEF922200B80EC8 /* VisibleSquare.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		84D3F7E72BED44E000B80EC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		84D3F7F02BEEBDC400B80EC8 /* ImageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageIcon.swift; sourceTree = "<group>"; };
 		84D3F7F22BEEBE2000B80EC8 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
+		84D3F7F42BEF922200B80EC8 /* VisibleSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibleSquare.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				84D3F7E62BED44E000B80EC8 /* Preview Content */,
 				84D3F7F02BEEBDC400B80EC8 /* ImageIcon.swift */,
 				84D3F7F22BEEBE2000B80EC8 /* NextButton.swift */,
+				84D3F7F42BEF922200B80EC8 /* VisibleSquare.swift */,
 			);
 			path = PlayerApp;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84D3F7E32BED44DB00B80EC8 /* ContentView.swift in Sources */,
+				84D3F7F52BEF922200B80EC8 /* VisibleSquare.swift in Sources */,
 				84D3F7E12BED44DB00B80EC8 /* PlayerAppApp.swift in Sources */,
 				84D3F7F32BEEBE2000B80EC8 /* NextButton.swift in Sources */,
 				84D3F7F12BEEBDC400B80EC8 /* ImageIcon.swift in Sources */,
