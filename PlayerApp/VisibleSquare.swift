@@ -9,33 +9,34 @@ import SwiftUI
 
 struct VisibleSquare: View {
     @State private var offset = CGSize.zero
+    
     var body: some View {
         ZStack {
-            VStack(spacing: .zero) {
-                Rectangle()
-                    .foregroundStyle(.white)
-                Rectangle()
-                    .foregroundStyle(.pink)
-                Rectangle()
-                    .foregroundStyle(.yellow)
-                Rectangle()
-                    .foregroundStyle(.black)
+            VStack(spacing: 0) {
+                Color.black
+                Color.white
+                Color.black
+                Color.white
             }
-            dynamicRectangle
-                .foregroundColor(.black)
-                .blendMode(.difference)
-                .overlay(dynamicRectangle.blendMode(.hue))
-                .overlay(dynamicRectangle.foregroundColor(.white).blendMode(.overlay))
-                .overlay(dynamicRectangle.foregroundColor(.black).blendMode(.overlay))
+            VStack(spacing: 0) {
+                Color.white
+                Color.pink
+                Color.yellow
+                Color.black
+            }
+            .overlay {
+                dynamicRectangle
+                    .blendMode(.destinationOut)
+            }
+            .compositingGroup()
         }
         .ignoresSafeArea()
     }
     
     var dynamicRectangle: some View {
-        Rectangle()
+        RoundedRectangle(cornerRadius: 25.0)
             .frame(width: 100, height: 100)
-            .foregroundColor(.black)
-            .colorInvert()
+            .foregroundColor(.white)
             .offset(offset)
             .gesture(
                 DragGesture()
